@@ -3,6 +3,8 @@ package com.elena.bookStoreInventory2.bookManagement;
 import com.elena.bookStoreInventory2.DBConnection;
 import com.elena.bookStoreInventory2.authorManagement.Author;
 import com.elena.bookStoreInventory2.authorManagement.AuthorDao;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +14,42 @@ import java.util.List;
 
 @Component
 public class BookDao {
+    boolean isCreated = false;
+    boolean isReadyForDestroy = false;
+
     private final DBConnection dbConnection;
 
     @Autowired
     public BookDao(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
+    }
+
+    @PostConstruct
+    public void init() {
+        isCreated = true;
+        System.out.println("BookDao has been created");
+    }
+
+    @PreDestroy
+    public  void destroy() {
+        isReadyForDestroy = true;
+        System.out.println("BookDao will be destroyed");
+    }
+
+    public boolean isCreated() {
+        return isCreated;
+    }
+
+    public void setCreated(boolean created) {
+        isCreated = created;
+    }
+
+    public boolean isReadyForDestroy() {
+        return isReadyForDestroy;
+    }
+
+    public void setReadyForDestroy(boolean readyForDestroy) {
+        isReadyForDestroy = readyForDestroy;
     }
 
     public List<GetBookDTO> getAllBooks() {
