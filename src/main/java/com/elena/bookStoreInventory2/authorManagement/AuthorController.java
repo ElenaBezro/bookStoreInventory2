@@ -12,8 +12,12 @@ import java.util.List;
 @RequestMapping("/authors")
 public class AuthorController {
 
+    private AuthorRepository authorDao;
+
     @Autowired
-    private AuthorDao authorDao;
+    public AuthorController(AuthorRepository authorDao) {
+        this.authorDao = authorDao;
+    }
 
     @GetMapping
     public List<Author> getAllAuthors() {

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class AuthorDao {
+public class AuthorDao implements AuthorRepository {
     boolean isCreated = false;
     boolean isReadyForDestroy = false;
     private final DBConnection dbConnection;
